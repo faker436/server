@@ -9,7 +9,19 @@ const progressRouter     = require("./routes/progress");
 const app    = express();
 const upload = multer({ storage: multer.memoryStorage() });
 
-app.use(cors({ origin: ["https://gentle-vacherin-4e94cb.netlify.app"] }));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (curl, Postman, same-origin)
+      if (!origin) return callback(null, true);
+      if (ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
+      callback(new Error(`CORS: origin ${origin} not allowed`));
+    },
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Mount routes
