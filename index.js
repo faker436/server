@@ -9,6 +9,14 @@ const progressRouter     = require("./routes/progress");
 const app    = express();
 const upload = multer({ storage: multer.memoryStorage() });
 
+const ALLOWED_ORIGINS = [
+  "http://localhost:5173",
+  "http://localhost:4173",
+  "http://localhost:5174",
+  // Production frontend — update this to your actual frontend URL
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
 app.use(
   cors({
     origin: (origin, callback) => {
