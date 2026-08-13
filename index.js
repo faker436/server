@@ -9,7 +9,7 @@ const progressRouter     = require("./routes/progress");
 const app    = express();
 const upload = multer({ storage: multer.memoryStorage() });
 
-app.use(cors({ origin: ["https://gentle-vacherin-4e94cb.netlify.app/"] }));
+app.use(cors({ origin: ["https://gentle-vacherin-4e94cb.netlify.app"] }));
 app.use(express.json());
 
 // Mount routes
